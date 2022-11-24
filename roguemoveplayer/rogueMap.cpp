@@ -1,4 +1,5 @@
 #include "rogueMap.h"
+#include <fstream>
 
 RogueMap::RogueMap() {
 	mapHeight = 0;
@@ -13,11 +14,16 @@ RogueMap::~RogueMap() {
 
 void RogueMap::loadmap(int height, int width) {
 	
-	HWND console = GetConsoleWindow();
-	RECT r;
-	GetWindowRect(console, &r);
+	HWND hWnd = GetConsoleWindow();
+	DWORD dwStyle = GetWindowLong(hWnd, GWL_STYLE);
+	SetWindowLong(hWnd, GWL_STYLE, dwStyle & ~WS_OVERLAPPEDWINDOW);
+	SendMessage(hWnd, WM_SYSCOMMAND, SC_MAXIMIZE, 0);
 
-	MoveWindow(console, r.left, r.top, 800, 800, TRUE);
+	//HWND console = GetConsoleWindow();
+	//RECT r;
+	//GetWindowRect(console, &r);
+
+	//MoveWindow(console, r.left, r.top, GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN), SWP_FRAMECHANGED);
 
 	utility::showConsoleCursor(false);
 
@@ -51,6 +57,8 @@ bool RogueMap::setXY(int x, int  y, char value) {
 
 void RogueMap::printmap() {
 	utility::gotoScreenPosition(0, 0); {
+
+		std::ifstream myfile; myfile.open("Map.txt");
 
 		for (int y = 0; y < mapHeight; y++)
 		{

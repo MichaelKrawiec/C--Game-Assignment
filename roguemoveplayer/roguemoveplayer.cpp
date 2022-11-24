@@ -3,6 +3,8 @@
 #include <string>
 #include "utility.h"
 #include "rogueMap.h"
+#include <fstream>
+
 
 
 // Global Variables
@@ -13,7 +15,8 @@ unsigned int newPlayerPositionY = playerPositionY;
 
 unsigned int health = 0;
 
-char playerChar = 2;
+char playerChar1 = 2;
+char playerChar2 = 179;
 
 RogueMap map;
 
@@ -47,13 +50,19 @@ void handleInput()
 
 void renderPlayer()
 {
+
+	
 	// Draw new player position
 	utility::gotoScreenPosition(playerPositionX, playerPositionY);
+	std::cout << " ";
+	utility::gotoScreenPosition(playerPositionX, playerPositionY + 1);
 	std::cout << " ";
 
 	// Draw new player position
 	utility::gotoScreenPosition(newPlayerPositionX, newPlayerPositionY);
-	std::cout << playerChar;
+	std::cout << playerChar1;
+	utility::gotoScreenPosition(newPlayerPositionX, newPlayerPositionY+1);
+	std::cout << playerChar2;
 
 	playerPositionX = newPlayerPositionX;
 	playerPositionY = newPlayerPositionY;
@@ -64,8 +73,8 @@ void renderPlayer()
 int main()
 {
 
-	map.loadmap(50, 50);
-	
+	map.loadmap(30, 30);
+
 	while (true)
 	{
 		// // Handles the input and updates the players position
@@ -74,6 +83,8 @@ int main()
 		// Render the scene
 		renderPlayer();
 	}
+	
+	
 
 	return 0;
 
