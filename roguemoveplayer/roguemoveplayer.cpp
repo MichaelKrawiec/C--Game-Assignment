@@ -73,8 +73,15 @@ void renderPlayer()
 int main()
 {
 
-	map.loadmap(30, 30);
+	map.loadmap(21, 79);
+	/*char ch;
+	for (int i = 6; i < 256; i++)
+	{
+		ch = i;
+		utility::gotoScreenPosition(0, i);
 
+		std::cout << i << " = " << ch << std::endl;
+	}*/
 	while (true)
 	{
 		// // Handles the input and updates the players position
@@ -82,6 +89,9 @@ int main()
 
 		// Render the scene
 		renderPlayer();
+
+		utility::gotoScreenPosition(2, 1);
+		std::cout << "Score: 0\n";
 	}
 	
 	
