@@ -76,7 +76,7 @@ void RogueMap::loadmap(int height, int width) {
 }
 
 char RogueMap::getXY(int x, int y) {
-	return ' ';
+	return (y*mapWidth+x);
 }
 
 bool RogueMap::setXY(int x, int  y, char value) {
