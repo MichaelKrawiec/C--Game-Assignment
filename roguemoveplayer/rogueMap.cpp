@@ -74,11 +74,8 @@ void RogueMap::loadmap(int height, int width) {
 
 void RogueMap::loadmap2(int height, int width) {
 
-	HWND hWnd = GetConsoleWindow();
-	DWORD dwStyle = GetWindowLong(hWnd, GWL_STYLE);
-	SetWindowLong(hWnd, GWL_STYLE, dwStyle & ~WS_OVERLAPPEDWINDOW);
-	SendMessage(hWnd, WM_SYSCOMMAND, SC_MAXIMIZE, 0);
 
+	
 	/*HWND console = GetConsoleWindow();
 	RECT r;
 	GetWindowRect(console, &r);
@@ -97,7 +94,7 @@ void RogueMap::loadmap2(int height, int width) {
 
 
 	if (!gameMapFile2) {
-		std::cerr << "Error GamerOver file\n";
+		std::cerr << "Error opening GamerOver file\n";
 		exit(2);
 	}
 

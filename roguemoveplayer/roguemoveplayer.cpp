@@ -9,12 +9,12 @@
 
 // Global Variables
 unsigned int playerPositionX = 3;
-unsigned int playerPositionY = 18;
+unsigned int playerPositionY = 14;
 unsigned int newPlayerPositionX = playerPositionX;
 unsigned int newPlayerPositionY = playerPositionY;
 
-unsigned int health = 0;
-unsigned int score = 0;
+unsigned int health = 3;
+unsigned int score = 10;
 
 char playerChar1 = 2;
 char playerChar2 = 179;
@@ -34,13 +34,26 @@ void handleInput()
 		if (map.getXY(playerPositionX, playerPositionY - 1) == ' ') {
 
 			newPlayerPositionY = playerPositionY - 1;
+			
+			//map2.loadmap2(22, 79);
 
-			if (map.getXY(playerPositionX, playerPositionY - 1) == '-' && map.getXY(playerPositionX, playerPositionY - 1) == '-') {
+			
+		}
+		if (map.getXY(playerPositionX, playerPositionY - 1) == '-' || map.getXY(playerPositionX, playerPositionY) == '-') {
 
 				newPlayerPositionY = playerPositionY - 1;
 				map2.loadmap2(22, 79);
 			}
-		}
+			if (map.getXY(playerPositionX, playerPositionY - 1) == '*' || map.getXY(playerPositionX, playerPositionY) == '*') {
+
+				newPlayerPositionY = playerPositionY - 1;
+				score += 10;
+			}
+			if (map.getXY(playerPositionX, playerPositionY - 1) == '@' || map.getXY(playerPositionX, playerPositionY) == '@') {
+
+				newPlayerPositionY = playerPositionY - 1;
+				health - 1;
+			}
 
 	}
 
@@ -84,26 +97,27 @@ void renderPlayer()
 	utility::gotoScreenPosition(newPlayerPositionX, newPlayerPositionY + 1);
 	std::cout << playerChar2;
 
-	//if (map.getXY(playerPositionX, playerPositionY + 2) != '_') {
-	//	while (true) {
 
-	//		// Draw new player position
-	//		utility::gotoScreenPosition(newPlayerPositionX, newPlayerPositionY += 1);
-	//		std::cout << playerChar1;
-	//		utility::gotoScreenPosition(newPlayerPositionX, newPlayerPositionY += 1);
-	//		std::cout << playerChar2;
-	//		utility::gotoScreenPosition(playerPositionX, playerPositionY - 1);
-	//		std::cout << " ";
-	//		utility::gotoScreenPosition(playerPositionX, playerPositionY);
-	//		std::cout << " ";
-	//		playerPositionX = newPlayerPositionX;
-	//		playerPositionY = newPlayerPositionY;
-	//		Sleep(500);
+	////if (map.getXY(playerPositionX, playerPositionY + 2) == ' ') {
+	////	while (true) {
+
+	////		// Draw new player position
+	////		utility::gotoScreenPosition(newPlayerPositionX, newPlayerPositionY += 1);
+	////		std::cout << playerChar1;
+	////		utility::gotoScreenPosition(newPlayerPositionX, newPlayerPositionY += 1);
+	////		std::cout << playerChar2;
+	////		utility::gotoScreenPosition(playerPositionX, playerPositionY - 1);
+	////		std::cout << " ";
+	////		utility::gotoScreenPosition(playerPositionX, playerPositionY);
+	////		std::cout << " ";
+	////		playerPositionX = newPlayerPositionX;
+	////		playerPositionY = newPlayerPositionY;
+	////		Sleep(500);
 
 
-	//		if (map.getXY(playerPositionX, playerPositionY + 2) == '_' || map.getXY(playerPositionX, playerPositionY + 1) == '_') break;
-	//	}
-	//}
+	////		if (map.getXY(playerPositionX, playerPositionY + 2) == 177 || map.getXY(playerPositionX, playerPositionY + 1) == 177) break;
+	////	}
+	////}
 
 
 	playerPositionX = newPlayerPositionX;
@@ -113,9 +127,7 @@ void renderPlayer()
 
 	Sleep(150);
 }
-//void load() {
-//	map2.loadmap(22, 79);
-//	}
+
 int main()
 {
 
@@ -132,16 +144,15 @@ int main()
 	{
 		// // Handles the input and updates the players position
 		handleInput();
-		utility::gotoScreenPosition(2, 1);
-		std::cout << "Score: 0\n"+ score;
+		utility::gotoScreenPosition(2, 23);
+		std::cout << "Score: " << score;
 
-		utility::gotoScreenPosition(36, 1);
-		std::cout << "Hearts: 3\n" + health;
+		utility::gotoScreenPosition(36, 23);
+		std::cout << "Hearts: " << health;
 		// Render the scene
 		renderPlayer();
 
 	}
-	
 	
 
 	return 0;
