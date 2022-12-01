@@ -74,7 +74,10 @@ void RogueMap::loadmap(int height, int width) {
 
 void RogueMap::loadmap2(int height, int width) {
 
-
+	HWND hWnd = GetConsoleWindow();
+	DWORD dwStyle = GetWindowLong(hWnd, GWL_STYLE);
+	SetWindowLong(hWnd, GWL_STYLE, dwStyle & ~WS_OVERLAPPEDWINDOW);
+	SendMessage(hWnd, WM_SYSCOMMAND, SC_MAXIMIZE, 0);
 	
 	/*HWND console = GetConsoleWindow();
 	RECT r;
@@ -90,7 +93,7 @@ void RogueMap::loadmap2(int height, int width) {
 	// Allocating memory for the map.
 
 	map2 = new char[mapHeight * mapWidth];
-	std::ifstream gameMapFile2{ "GameoverMap", std::ios::in };
+	std::ifstream gameMapFile2{ "GameoverMap.txt", std::ios::in };
 
 
 	if (!gameMapFile2) {
@@ -108,6 +111,23 @@ void RogueMap::loadmap2(int height, int width) {
 		if (c2 == '_')
 
 			c2 = 177;
+
+		if (c2 == '~')
+
+			c2 = 197;
+
+		if (c2 == ';')
+
+			c2 = 223;
+
+		if (c2 == '/')
+
+			c2 = 220;
+
+		if (c2 == '#')
+
+			c2 = 219;
+		
 		map2[counter2] = c2;
 		counter2++;
 	}
